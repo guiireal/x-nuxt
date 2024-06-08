@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/useAuthStore";
+import { type LoginData } from "@/types";
+import actions from "@/actions";
 
 definePageMeta({
   layout: "guest",
   middleware: ["guest"]
 });
 
-const form = ref({
+const form = ref<LoginData>({
   email: "test@example.com",
   password: "password",
 });
@@ -14,10 +16,7 @@ const form = ref({
 const authStore = useAuthStore();
 
 const submit = async () => {
-  await authStore.login({
-    email: form.value.email,
-    password: form.value.password
-  });
+  await actions.auth.login(form.value);
 
   navigateTo("/");
 };
