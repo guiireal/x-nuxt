@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
+import actions from "~/actions";
+
 definePageMeta({
   middleware: ["auth"]
 });
 
-const authStore = useAuthStore();
-
 const handleLogout = async () => {
-  await authStore.logout();
+  await actions.auth.logout();
   navigateTo("/login");
 };
 
